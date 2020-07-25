@@ -1,28 +1,26 @@
-﻿using EXILED;
+﻿using Exiled.API.Features;
 
 namespace AdministrationManagement
 {
-    public class MainSettings : Plugin
+    public class MainSettings : Plugin<Config>
     {
-        public override string getName => nameof(AdministrationManagement);
+        public override string Name => nameof(AdministrationManagement);
         public SetEvents SetEvents { get; set; }
-        public override void OnEnable()
+        public override void OnEnabled()
         {
             SetEvents = new SetEvents();
-            Events.PlayerJoinEvent += SetEvents.OnPlayerJoin;
-            Events.WaitingForPlayersEvent += SetEvents.OnWaitingForPlayers;
-            Events.SetGroupEvent += SetEvents.OnSetGroup;
-            Log.Info(getName + " on");
+            Exiled.Events.Handlers.Player.Joined += SetEvents.OnJoined;
+            Exiled.Events.Handlers.Server.WaitingForPlayers += SetEvents.OnWaitingForPlayers;
+            Exiled.Events.Handlers.Player.ChangingGroup += SetEvents.OnChangingGroup;
+            Log.Info(Name + " on");
         }
 
-        public override void OnDisable()
+        public override void OnDisabled()
         {
-            Events.PlayerJoinEvent -= SetEvents.OnPlayerJoin;
-            Events.WaitingForPlayersEvent -= SetEvents.OnWaitingForPlayers;
-            Events.SetGroupEvent -= SetEvents.OnSetGroup;
-            Log.Info(getName + " off");
+            Exiled.Events.Handlers.Player.Joined -= SetEvents.OnJoined;
+            Exiled.Events.Handlers.Server.WaitingForPlayers -= SetEvents.OnWaitingForPlayers;
+            Exiled.Events.Handlers.Player.ChangingGroup -= SetEvents.OnChangingGroup;
+            Log.Info(Name + " off");
         }
-
-        public override void OnReload() { }
     }
 }

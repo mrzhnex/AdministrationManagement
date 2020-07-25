@@ -1,6 +1,6 @@
-﻿using EXILED;
+﻿using Exiled.API.Features;
+using Exiled.Events.EventArgs;
 using System.Collections.Generic;
-using EXILED.Extensions;
 using System.IO;
 using System.Linq;
 
@@ -8,26 +8,26 @@ namespace AdministrationManagement
 {
     public class SetEvents
     {
-        internal void OnPlayerJoin(PlayerJoinEvent ev)
+        internal void OnChangingGroup(ChangingGroupEventArgs ev)
         {
-            if (Global.Administration.ContainsKey(ev.Player.GetUserId()))
+            if (Global.Administration.ContainsKey(ev.Player.UserId) && ev.NewGroup != Global.Administration[ev.Player.UserId].UserGroup)
             {
-                ev.Player.SetRank(Global.Administration[ev.Player.GetUserId()]);
-                Log.Info("Set rank " + Global.Administration[ev.Player.GetUserId()].BadgeText + " to " + ev.Player.nicknameSync.Network_myNickSync);
+                ev.IsAllowed = false;
             }
         }
 
-        internal void OnSetGroup(SetGroupEvent ev)
+        internal void OnJoined(JoinedEventArgs ev)
         {
-            if (Global.Administration.ContainsKey(ev.Player.GetUserId()) && ev.Group != Global.Administration[ev.Player.GetUserId()])
+            if (Global.Administration.ContainsKey(ev.Player.UserId))
             {
-                ev.Allow = false;
+                ev.Player.SetRank(Global.Administration[ev.Player.UserId].Name, Global.Administration[ev.Player.UserId].UserGroup);
+                Log.Info("Set rank " + Global.Administration[ev.Player.UserId].UserGroup.BadgeText + " to " + ev.Player.Nickname);
             }
         }
 
         internal void OnWaitingForPlayers()
         {
-            Global.Administration = new Dictionary<string, UserGroup>();
+            Global.Administration = new Dictionary<string, AdministrationGroup>();
             List<string> tempAdministration = File.ReadAllLines(Global.AdministrationFullFileName).ToList();
             foreach (string line in tempAdministration)
             {
@@ -39,7 +39,7 @@ namespace AdministrationManagement
                 if (!ServerStatic.GetPermissionsHandler().GetAllGroups().ContainsKey(args[1]))
                     continue;
                 if (!Global.Administration.ContainsKey(args[0]))
-                    Global.Administration.Add(args[0], ServerStatic.GetPermissionsHandler().GetAllGroups()[args[1]]);
+                    Global.Administration.Add(args[0], new AdministrationGroup() { Name = args[1], UserGroup = ServerStatic.GetPermissionsHandler().GetAllGroups()[args[1]] });
             }
         }
     }

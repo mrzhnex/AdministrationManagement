@@ -10,7 +10,7 @@ namespace AdministrationManagement
     {
         internal void OnChangingGroup(ChangingGroupEventArgs ev)
         {
-            if (Global.Administration.ContainsKey(ev.Player.UserId) && ev.NewGroup != Global.Administration[ev.Player.UserId])
+            if (ev.Player != null && Global.Administration.ContainsKey(ev.Player.UserId) && ev.NewGroup != Global.Administration[ev.Player.UserId])
             {
                 ev.IsAllowed = false;
             }

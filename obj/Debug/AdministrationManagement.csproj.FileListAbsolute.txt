@@ -54,7 +54,6 @@ E:\SCP SL plugins\AdministrationManagement\bin\Debug\UnityEngine.VehiclesModule.
 E:\SCP SL plugins\AdministrationManagement\bin\Debug\UnityEngine.WindModule.dll
 E:\SCP SL plugins\AdministrationManagement\bin\Debug\UnityEngine.XRModule.dll
 E:\SCP SL plugins\AdministrationManagement\bin\Debug\UnityEngine.InputModule.dll
-E:\SCP SL plugins\AdministrationManagement\obj\Debug\AdministrationManagement.csprojAssemblyReference.cache
 E:\SCP SL plugins\AdministrationManagement\obj\Debug\AdministrationManagement.csproj.CoreCompileInputs.cache
 E:\SCP SL plugins\AdministrationManagement\obj\Debug\AdministrationManagement.csproj.CopyComplete
 E:\SCP SL plugins\AdministrationManagement\obj\Debug\AdministrationManagement.dll
@@ -74,3 +73,4 @@ E:\SCP SL plugins\AdministrationManagement\bin\Debug\CloudflareSolverRe.dll
 E:\SCP SL plugins\AdministrationManagement\bin\Debug\zxing.unity.dll
 E:\SCP SL plugins\AdministrationManagement\bin\Debug\System.Buffers.dll
 E:\SCP SL plugins\AdministrationManagement\bin\Debug\System.Memory.dll
+E:\SCP SL plugins\AdministrationManagement\obj\Debug\AdministrationManagement.csprojAssemblyReference.cache
